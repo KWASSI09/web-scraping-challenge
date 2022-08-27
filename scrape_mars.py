@@ -1,29 +1,31 @@
-# Automates browser actions
 from splinter import Browser
-
-# Parses the HTML
-from bs4 import BeautifulSoup
-import pandas as pd
-import time
-
-# For scraping with Chrome
+from bs4 import BeautifulSoup as bs
 from webdriver_manager.chrome import ChromeDriverManager
+import pandas as pd
+from splinter import Browser
+import time
+from selenium import webdriver
 
 
-def scrape():
-    # Setup splinter
-    # browser = init_browser()
+def init_browser:
+   
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
 
-# Setting an empty dict for listings that we can save to Mongo    
-nasa_mars_data = {} 
-
-def mars_news():
-    browser = scrape()
     
+def scrape():
+    broswer = init_browser()
+    
+     
+# Setting an empty dict for listings that we can save to Mongo    
+    nasa_mars_data = {} 
+
+#def mars_news():
+    #browser = scrape()
+    time.sleep(1)
     Nasa_url = "https://redplanetscience.com/"
     browser.visit(Nasa_url)
+    
     #creating my html object and parsing with bs
     html = browser.html
 
@@ -45,16 +47,16 @@ def mars_news():
     
     #print(f" source:{Nasa_url}")
     
-    return nasa_mars_data
+    #return nasa_mars_data
     
-    
-def JPL_scrape():
-    browser = scrape()
+    time.sleep(1)
+#def JPL_scrape():
+    #browser = scrape()
         
     jpl_url = "https://spaceimages-mars.com/"
     browser.visit(jpl_url)
-    html = browser.html
-    soup = bs(html,"html.parser")
+    response = browser.html
+    soup = bs( response,"html.parser")
         
     image = soup.find("img", class_="fade-in")["src"]
     featured_image_url = jpl_url+image
@@ -62,11 +64,11 @@ def JPL_scrape():
                     "source":jpl_url}
     
         
-    return nasa_mars_data
+    #return nasa_mars_data
 
-
-def mars_facts():
-    browser = scrape()
+    time.sleep(1)
+#def mars_facts():
+    #browser = scrape()
     
     mars_facts = "https://space-facts.com/mars/"
     #creating DataFrame to store the scraped data
@@ -78,14 +80,14 @@ def mars_facts():
     mars_data_df.index.name=None
     
     #using pandas to convert the table to a html
-    html_table = mars_data_df.to_html()
-    nasa_mars_data = {"html_table":html_table,
+    mars_table = mars_data_df.to_html()
+    nasa_mars_data = {"html_table":mars_table,
                       "source":mars_facts}
     
-    return nasa_mars_data
-    
-def mars_hemispheres():
-    browser = scrape()
+    #return nasa_mars_data
+    time.sleep(1)
+#def mars_hemispheres():
+    #browser = scrape()
     Hemispheres_url = "https://marshemispheres.com/"
     browser.visit(Hemispheres_url)
     html = browser.html
@@ -104,6 +106,7 @@ def mars_hemispheres():
         hemi_img_url = Hemispheres_url + img_url
     
         browser.visit(hemi_img_url)
+        time.sleep(5)
         html = browser.html
         hemi_soup = bs(html, "html.parser")
         #hemis_url = soup.find("img", class_= "wide-image")["src"]
@@ -119,6 +122,9 @@ def mars_hemispheres():
         hemisp_image_urls.append(img_data)
         
     nasa_mars_data={"hemisp_image_urls":hemisp_image_urls}
+    
+    
+    browser.quit()
                     
     return nasa_mars_data
     

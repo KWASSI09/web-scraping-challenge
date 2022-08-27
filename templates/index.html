@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scraping into Mars</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+
+    <div class="container">
+        <div class="jumbotron text-center text-dark p-5" style="background-image:url(https://mars.nasa.gov/system/resources/detail_files/26842_PIA25325-web.jpg); height: 200px;">
+             <h1>Mission to Mars</h1>
+             <button type="button" class="btn btn-primary active btn-md">Scrape New Data</button>
+        </div>     
+    </div>
+
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="heading">Latest Mars News</h2>
+              <h3 class="heading">{{data.latest_news_title }}</h3>
+              <p>{{data.latest_news_paragraph }}</p>
+            <h4><a href="{{data.Nasa_url}}" class="text-decoration-none" style="color: blue" target="_blank">Source</Source></a></h4>
+        </div>
+    </div>
+    </div>
+    <!-- row to line up latest image and table -->
+  <div class="row">
+    <!-- featured image with h3 header takes up most of the 12 columns -->
+    <div class="col-md-8 col-sm-12">
+      <div class="box">
+        <div class="page-header">
+          <h3 class="title">Featured Mars Image</h3>
+        </div>
+        <div class="content">
+            <img src="{{data.featured_image_url }}" alt="Featured Mars Image" style="width:100%">
+        </div>
+        <h5><a href=" {{data.jpl_url}} " class="text-decoration-none" style="color:#398439" target=”_blank”>Image Source</a></h5>
+      </div>
+    </div>
+
+    <!-- facts table takes up the rest of the columns; relies on pandas css from df.to_html(classes = 'table table-striped table-hover') -->
+    <div class="col-md-4 col-sm-12">
+      <div class="box">
+        <div class="page-header">
+          <h3 class="title">Mars Facts</h3>
+        </div>
+          <div>
+          {{data.mars_table | safe }}
+          </div>
+          <h5><a href=" {{data.mars_facts }} " class="text-decoration-none" style="color:#398439" target=”_blank”>Facts Source</a></h5>
+      </div>
+  </div>
+ </div>
+    <!-- new row for the hemisphere images -->
+   <div class="row">
+    <div class="page-header">
+        <h2 class="text-center"><b>Mars Hemispheres</b></h2>
+    </div>
+    <!-- "for" loop to go through the Mongo array -->
+    {% for hemi in data.hemisp_image_urls %}
+    <div class="card col-md-6">
+      <img class="card-img-top" src="{{ data.hemisp_image_urls }}" style="width:100%">
+        <div class="card-body">
+          <a href="{{ data.img_data}}" target=”_blank style="color:#398439" class="card-link">Hemisphere Source</a>
+        </div>
+    </div>
+    {% endfor %}
+   </div>
+
+  <!-- basic footer -->
+  </div>
+  <footer>
+    <br>
+  <div class="footer"><a class="link-unstyled" style="color:#398439"  target="_blank" href="https://github.com/KWASSI09">Kouamé Javier Marius Kouassi</a>, <a class="link-unstyled" style="color:#398439"  target="_blank" href="https://bootcamp.birmingham.ac.uk/data/">University of Birmingham Data Analytics Bootcamp</a></div>
+  </footer>    
+            
+      
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
