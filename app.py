@@ -19,8 +19,9 @@ def home():
     return render_template("index.html", data=nasa_mars_data)
 
 @app.route("/scrape")
-def scraper():     
-    nasa_mars_data =scrape_mars.scrape()
+def scrape(): 
+    
+    nasa_mars_data =scrape_mars.scrape() 
     mongo.db.mars_data.update({}, nasa_mars_data, upsert=True)
     return redirect("/")
 

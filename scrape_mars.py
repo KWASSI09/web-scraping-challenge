@@ -4,17 +4,16 @@ from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 from splinter import Browser
 import time
-from selenium import webdriver
 
 
-def init_browser:
+def init_browser():
    
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
 
     
 def scrape():
-    broswer = init_browser()
+    browser = init_browser()
     
      
 # Setting an empty dict for listings that we can save to Mongo    
@@ -121,7 +120,7 @@ def scrape():
         img_data=dict({'title':title, 'img_url':final_image_url})
         hemisp_image_urls.append(img_data)
         
-    nasa_mars_data={"hemisp_image_urls":hemisp_image_urls}
+        nasa_mars_data={"hemisp_image_urls":hemisp_image_urls}
     
     
     browser.quit()
