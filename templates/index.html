@@ -19,27 +19,27 @@
     </div>
 
     <div class="container">
-    <div class="row">
+      <div class="row">
         <div class="col-md-12">
             <h2 class="heading">Latest Mars News</h2>
-              <h3 class="heading">{{nasa_mars_data.latest_news_title }}</h3>
-              <p>{{nasa_mars_data.latest_news_paragraph }}</p>
-            <h4><a href="{{nasa_mars_data.Nasa_url}}" class="text-decoration-none" style="color: blue" target="_blank">Source</Source></a></h4>
+              <h3 class="heading">{{mars.latest_news_title }}</h3>
+              <p>{{mars.latest_news_paragraph }}</p>
+            
         </div>
-    </div>
-    </div>
+      </div>
+  
     <!-- row to line up latest image and table -->
-  <div class="row">
+    <div class="row">
     <!-- featured image with h3 header takes up most of the 12 columns -->
-    <div class="col-md-8 col-sm-12">
+     <div class="col-md-8 col-sm-12">
       <div class="box">
         <div class="page-header">
           <h3 class="title">Featured Mars Image</h3>
         </div>
         <div class="content">
-            <img src="{{nasa_mars_data.featured_image_url }}" alt="Featured Mars Image" style="width:100%">
+            <img src="{{mars.featured_image_url }}" alt="Featured Mars Image" style="width:100%,height=auto">
         </div>
-        <h5><a href=" {{nasa_mars_data.jpl_url}} " class="text-decoration-none" style="color:#398439" target=”_blank”>Image Source</a></h5>
+       
       </div>
     </div>
 
@@ -50,30 +50,29 @@
           <h3 class="title">Mars Facts</h3>
         </div>
           <div>
-          {{nasa_mars_data.mars_table | safe }}
+          <table>{{mars.mars_table | safe }}</table>
           </div>
-          <h5><a href=" {{nasa_mars_data.mars_facts }} " class="text-decoration-none" style="color:#398439" target=”_blank”>Facts Source</a></h5>
       </div>
-  </div>
- </div>
+    </div>
+ 
     <!-- new row for the hemisphere images -->
    <div class="row">
     <div class="page-header">
         <h2 class="text-center"><b>Mars Hemispheres</b></h2>
     </div>
     <!-- "for" loop to go through the Mongo array -->
-    {% for hemi in nasa_mars_data.hemisp_image_urls %}
+    {% for x in mars.hemisp_image_urls %}
     <div class="card col-md-6">
-      <img class="card-img-top" src="{{nasa_mars_data.hemisp_image_urls }}" style="width:100%">
+      <img class="card-img-top" src="{{x.hemisp_image_urls }}" style="width:100%">
         <div class="card-body">
-          <a href="{{nasa_mars_data.Hemispheres_url}}" target=”_blank style="color:#398439" class="card-link">Hemisphere Source</a>
+          <p class=""card-text">{{x.title}}</p> 
         </div>
     </div>
     {% endfor %}
    </div>
 
   <!-- basic footer -->
-  </div>
+ </div>
   <footer>
     <br>
   <div class="footer"><a class="link-unstyled" style="color:#398439"  target="_blank" href="https://github.com/KWASSI09">Kouamé Javier Marius Kouassi</a>, <a class="link-unstyled" style="color:#398439"  target="_blank" href="https://bootcamp.birmingham.ac.uk/data/">University of Birmingham Data Analytics Bootcamp</a></div>
