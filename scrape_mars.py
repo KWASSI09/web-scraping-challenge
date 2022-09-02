@@ -54,15 +54,14 @@ def scrape():
     
     #title text extration
     latest_news_title = soup.find("div", class_="content_title").text
-    print(f" news_title: {latest_news_title}")
-    nasa_mars_data["latest_news_title"]=latest_news_title
+    #print(f" news_title: {latest_news_title}")
     # paragraph extraction
     latest_news_paragraph = soup.find('div',class_='article_teaser_body').text
     nasa_mars_data["latest_news_paragraph"]=latest_news_paragraph
-    print(f"latest_news_paragraph: {latest_news_paragraph}")
+    nasa_mars_data["latest_news_title"]=latest_news_title
+    #print(f"latest_news_paragraph: {latest_news_paragraph}")
     #nasa_mars_data ={"latest_news_title":latest_news_title,
-                     #"latest_news_paragraph":latest_news_paragraph,
-                     #"source":Nasa_url}
+                     #"latest_news_paragraph":latest_news_paragraph}
     
     
     #print(f" news_paragraph: {latest_news_paragraph}")
@@ -85,8 +84,8 @@ def scrape():
     image = soup.find("img", class_="fade-in")["src"]
     featured_image_url = jpl_url+image
     nasa_mars_data["featured_image_url"]=featured_image_url
-    #nasa_mars_data={"featured_image_url":featured_image_url,
-                    #"source":jpl_url}
+    #nasa_mars_data.update({"featured_image_url":featured_image_url})
+    #nasa_mars_data = {"featured_image_url":featured_image_url}
     #print(f" featured_image_url = {featured_image_url}")
         
     #return featured_image_url,jpl_url
@@ -97,26 +96,39 @@ def scrape():
     #browser = scrape()
     #browser = init_browser()
     
-    mars_facts_url = "https://space-facts.com/mars/"
-    #browser.visit(mars_facts)
+    #mars_facts_url = "https://space-facts.com/mars/"
+    #browser.visit(mars_facts_url)
 
+     #creating DataFrame to store the scraped data
+    #facts_table = pd.read_html(mars_facts_url)
+
+     #Create Dataframe to store table data
+     #df = facts_table[0]
+     #df.columns = ['Mars-Earth Comparison', 'Mars', 'Earth']
+     #html_table = df.to_html()
+     #html_table
+    #mars_data_df = facts_table[0]
+    #mars_data_df.columns = ["label", "Mars"]
+    #mars_data_df.set_index("label",inplace=True)
+    #mars_data_df.index.name=None 
+     #mars_data_df
+     #using pandas to convert the table to a html
+    #html_table = mars_data_df.to_html(classes="table table-striped table-hover")
+    #nasa_mars_data["html_table"]=html_table
+    #nasa_mars_data = {"html_table": html_table}
+
+    nasa_url= "https://galaxyfacts-mars.com/"
+    browser.visit(nasa_url)
     #creating DataFrame to store the scraped data
-    facts_table = pd.read_html(mars_facts_url)
+    marsfacts_df = pd.read_html(nasa_url)
+    #marsfacts_df
 
     #Create Dataframe to store table data
-    #df = facts_table[0]
-    #df.columns = ['Mars-Earth Comparison', 'Mars', 'Earth']
-    #html_table = df.to_html()
-    #html_table
-    mars_data_df = facts_table[0]
-    mars_data_df.columns = ["label", "Mars"]
-    mars_data_df.set_index("label",inplace=True)
-    mars_data_df.index.name=None 
-    #mars_data_df
-    #using pandas to convert the table to a html
-    html_table = mars_data_df.to_html(classes="marsdata")
+    df = marsfacts_df[0]
+    df.columns = ['Mars-Earth Comparison', 'Mars', 'Earth']
+    html_table = df.to_html()
     nasa_mars_data["html_table"]=html_table
-    
+        
     #return nasa_mars_data
     
     #return mars_table,mars_facts
@@ -142,7 +154,7 @@ def scrape():
         hemi_img_url = Hemispheres_url + img_url
     
         browser.visit(hemi_img_url)
-        time.sleep(5)
+        #time.sleep(5)
         html = browser.html
         hemi_soup = bs(html, "html.parser")
         #hemis_url = soup.find("img", class_= "wide-image")["src"]
@@ -151,13 +163,17 @@ def scrape():
         hemisph_img_url =  hemi_soup.find("img", class_= "wide-image")["src"]
         final_image_url =  Hemispheres_url+hemisph_img_url
     
-        print(final_image_url)
+        #print(final_image_url)
     
-       #appending the titles and hemisphere_urls into the dict
+        #appending the titles and hemisphere_urls into the dict
         img_data=dict({'title':title, 'img_url':final_image_url})
         hemisp_image_urls.append(img_data)
+
+        #browser.back()
         
-    nasa_mars_data["hemisp_image_urls"]=hemisp_image_urls
+    #nasa_mars_data["hemisp_image_urls"]=hemisp_image_urls
+
+    nasa_mars_data["hemisp_image_urls"] = hemisp_image_urls
     
     
     browser.quit()
