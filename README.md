@@ -1,7 +1,7 @@
 # My Final visualization
 ![Mars1](Screenshoots/mars1.png)
 ![Mars2](Screenshoots/mars2.png)
-![Mars3](Screenshoots/mars1.png)
+![Mars3](Screenshoots/mars3.png)
 
 # It is possible to see that all the data scraped were successfully stored into MongoDB, and then called in the HTML file for the final visualization.
 ![Mars3](Screenshoots/mongoDB.png)
