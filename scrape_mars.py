@@ -50,9 +50,10 @@ def scrape():
     #Create Dataframe to store table data
     df = marsfacts_df[0]
     df.columns = ['Mars-Earth Comparison', 'Mars', 'Earth']
-    df.set_index('Mars-Earth Comparison',inplace=True)
-    df.index.name=None
-    html_table = df.to_html(classes = 'table table-striped table-hover')
+    mars_df=df.drop(labels=0)
+    mars_df.set_index('Mars-Earth Comparison',inplace=True)
+    mars_df.index.name=None
+    html_table = mars_df.to_html(classes = 'table table-striped table-hover')
     nasa_mars_data["html_table"]=html_table
         
     
