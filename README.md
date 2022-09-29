@@ -3,7 +3,7 @@
 ![Mars2](Screenshoots/mars2.png)
 ![Mars3](Screenshoots/mars3.png)
 
-# The file below shows that the data scraped were successfully stored in MongoDB, from which I call them in the HTML file for the final visualization.
+### The file below shows that the data scraped were successfully stored in MongoDB, from which I call them in the HTML file for the final visualization.
 ![Mars3](Screenshoots/mongoDB.png)
 
 
